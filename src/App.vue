@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
+import Parent from "@/study/community/Parent.vue";
+
 </script>
 
 <template>
-  <HelloWorld count=0 />
+  <Parent/>
 </template>
 
 <style scoped>
