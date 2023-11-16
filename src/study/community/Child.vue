@@ -28,7 +28,7 @@ const clickTimes = computed(() => {
   <el-button type="primary" @click="childHandle">Child Button</el-button>
   <el-button type="primary" @click="count++">Child Button</el-button>
   <br/>
-  <span>{{ count.valueOf() }}</span>
+  <span>{{ count }}</span>
   <br/>
   <span> {{ clickTimes }} </span>
 </template>
