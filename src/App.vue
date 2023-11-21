@@ -3,14 +3,11 @@
 /*import EventBusTest from "@/study/community/EventBusTest.vue";*/
 
 /*import ConditionalRender from "@/study/conditional/ConditionalRender.vue";*/
-import VModel from "@/study/model/VModel.vue";
+/*import VModel from "@/study/model/VModel.vue";*/
 </script>
 
 <template>
-  <!--  <Parent/>-->
-  <!--  <EventBusTest />-->
-  <!--<ConditionalRender />-->
-  <VModel/>
+  <router-view />
 </template>
 
 <style scoped>
