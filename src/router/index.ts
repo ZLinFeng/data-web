@@ -6,6 +6,12 @@ export const routes: RouteRecordRaw[] = [
     {
         path: "/",
         component: Layouts,
+        children: [
+            {
+                path: "knowledge",
+                component: () => import("@/views/KnowledgeView.vue")
+            }
+        ]
     }
 ]
 

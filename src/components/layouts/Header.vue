@@ -1,6 +1,6 @@
 <script setup lang="ts">
 
-import {Expand, Fold} from "@element-plus/icons-vue";
+import {Expand, Fold, Search} from "@element-plus/icons-vue";
 import Avatar from "@/components/header/Avatar.vue";
 import Notion from "@/components/header/Notion.vue";
 
@@ -25,16 +25,21 @@ const changeCollapse = () => {
           <Fold/>
         </el-icon>
       </el-col>
-      <el-col :span="6">
-        <el-row justify="end" class="setting-container">
-          <el-col :span="4">
-            <Notion/>
+<!--      <el-col :span="3">
+        <el-row justify="space-evenly" class="setting-container">
+          <el-col :span="8">
+            <Notion />
           </el-col>
-          <el-col :span="4">
+          <el-col :span="8">
             <Avatar :url="avatarUrl"/>
           </el-col>
+          <el-col :span="8">
+            <el-button :icon="Search"
+                       style="font-size: 2em"
+                       circle/>
+          </el-col>
         </el-row>
-      </el-col>
+      </el-col>-->
     </el-row>
   </el-header>
 </template>
@@ -61,6 +66,12 @@ const changeCollapse = () => {
 .setting-container {
   height: 100%;
   align-items: center;
+}
+
+.setting-container .el-col {
+  display: flex;
+  align-items: center;
+  height: 100%;
 }
 
 

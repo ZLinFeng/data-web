@@ -1,10 +1,13 @@
 <script setup lang="ts">
-
 </script>
 
 <template>
   <el-container class="content">
-    <el-main>Main</el-main>
+    <el-main>
+      <el-scrollbar>
+        <router-view></router-view>
+      </el-scrollbar>
+    </el-main>
   </el-container>
 </template>
 

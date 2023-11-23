@@ -30,10 +30,10 @@ const is_collapse = ref(false);
 }
 
 .header-wrapper {
-  height: 5%;
+  height: 6%;
 }
 
 .body-wrapper {
-  height: 95%;
+  height: 94%;
 }
 </style>

@@ -1,9 +1,10 @@
 <script setup lang="ts">
 const props = defineProps(["url"])
+
 </script>
 
 <template>
-  <el-avatar :size="40" :src="props.url" />
+  <el-avatar :src="props.url" style="width: 2em; height: 2em"/>
 </template>
 
 <style scoped>

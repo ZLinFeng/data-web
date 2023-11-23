@@ -29,8 +29,10 @@ const isOpen = computed(() => !props.modelValue)
           <span v-if="isOpen" class="menu-text">Dashboard</span>
         </el-menu-item>
         <el-menu-item index="2" :style="{'justify-content': isOpen ? 'start' : 'center'}">
-          <el-icon><Files /></el-icon>
-          <span v-if="isOpen" class="menu-text">Knowledge Base</span>
+          <router-link to="knowledge">
+            <el-icon><Files /></el-icon>
+            <span v-if="isOpen" class="menu-text">Knowledge Base</span>
+          </router-link>
         </el-menu-item>
       </el-menu>
     </el-scrollbar>
@@ -80,5 +82,17 @@ const isOpen = computed(() => !props.modelValue)
 
 .menu-text {
   font-size: 1.2em;
+}
+
+.router-link-active {
+  text-decoration: none;
+}
+
+.router-link-exact-active {
+  text-decoration: none;
+}
+
+.el-menu-item a {
+  text-decoration: none;
 }
 </style>
