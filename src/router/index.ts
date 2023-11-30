@@ -13,7 +13,7 @@ export const routes: RouteRecordRaw[] = [
             },
             {
                 path: "information",
-                component: () => import("@/views/InformationView.vue")
+                component: () => import("@/views/information/InformationView.vue")
             },
             {
                 path: "data",

@@ -2,6 +2,7 @@
 import {Files, Odometer, Grid, Reading, Collection} from "@element-plus/icons-vue";
 import Logo from "@/components/layouts/Logo.vue";
 import {computed} from "vue";
+import SvgIcon from "@/components/commons/SvgIcon.vue";
 
 const backgroundColor = "white";
 const textColor = "#495365";
@@ -33,33 +34,25 @@ const isOpen = computed(() => !props.modelValue)
         </router-link>
         <router-link to="knowledge">
           <el-menu-item index="1" :style="{'justify-content': isOpen ? 'start' : 'center'}">
-            <el-icon>
-              <Collection/>
-            </el-icon>
+            <svg-icon name="cognition" />
             <span v-if="isOpen" class="menu-text">Cognition</span>
           </el-menu-item>
         </router-link>
         <router-link to="knowledge">
           <el-menu-item index="2" :style="{'justify-content': isOpen ? 'start' : 'center'}">
-            <el-icon>
-              <Files/>
-            </el-icon>
+            <svg-icon name="knowledge" />
             <span v-if="isOpen" class="menu-text">Knowledge</span>
           </el-menu-item>
         </router-link>
         <router-link to="information">
           <el-menu-item index="3" :style="{'justify-content': isOpen ? 'start' : 'center'}">
-            <el-icon>
-              <Reading/>
-            </el-icon>
+            <svg-icon name="information" />
             <span v-if="isOpen" class="menu-text">Information</span>
           </el-menu-item>
         </router-link>
         <router-link to="data">
           <el-menu-item index="4" :style="{'justify-content': isOpen ? 'start' : 'center'}">
-            <el-icon>
-              <Grid/>
-            </el-icon>
+            <svg-icon name="data" />
             <span v-if="isOpen" class="menu-text">Data</span>
           </el-menu-item>
         </router-link>
@@ -97,6 +90,10 @@ const isOpen = computed(() => !props.modelValue)
 
   > span {
     margin-left: 5px;
+  }
+
+  .inner-svg {
+    margin-right: 0.5em;
   }
 }
 
