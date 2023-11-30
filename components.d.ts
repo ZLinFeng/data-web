@@ -26,6 +26,8 @@ declare module 'vue' {
     ElScrollbar: typeof import('element-plus/es')['ElScrollbar']
     ElSpace: typeof import('element-plus/es')['ElSpace']
     ElSubMenu: typeof import('element-plus/es')['ElSubMenu']
+    ElTabPane: typeof import('element-plus/es')['ElTabPane']
+    ElTabs: typeof import('element-plus/es')['ElTabs']
     Header: typeof import('./src/components/layouts/Header.vue')['default']
     HeaderSettingBtn: typeof import('./src/components/header/HeaderSettingBtn.vue')['default']
     HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
@@ -35,5 +37,6 @@ declare module 'vue' {
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     Sider: typeof import('./src/components/layouts/Sider.vue')['default']
+    SvgIcon: typeof import('./src/components/commons/SvgIcon.vue')['default']
   }
 }

@@ -1,0 +1,14 @@
+@forward "element-plus/theme-chalk/src/common/var.scss" with (
+  $colors: (
+    "primary": (
+      "base": #6542e6,
+    ),
+  ),
+  $font-size: (
+  "base": 1.1em,
+  )
+);
+
+@import "global.css";
+@import "normalize.css";
+@import "element-plus/dist/index.css";

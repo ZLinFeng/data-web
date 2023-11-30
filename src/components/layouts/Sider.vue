@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {Files, Odometer} from "@element-plus/icons-vue";
+import {Files, Odometer, Grid, Reading, Collection} from "@element-plus/icons-vue";
 import Logo from "@/components/layouts/Logo.vue";
 import {computed} from "vue";
 
@@ -23,17 +23,46 @@ const isOpen = computed(() => !props.modelValue)
           :collapse="props.modelValue"
           :collapse-transition="false"
       >
-
-        <el-menu-item index="1" :style="{'justify-content': isOpen ? 'start' : 'center'}">
-          <el-icon><Odometer /></el-icon>
-          <span v-if="isOpen" class="menu-text">Dashboard</span>
-        </el-menu-item>
-        <el-menu-item index="2" :style="{'justify-content': isOpen ? 'start' : 'center'}">
-          <router-link to="knowledge">
-            <el-icon><Files /></el-icon>
-            <span v-if="isOpen" class="menu-text">Knowledge Base</span>
-          </router-link>
-        </el-menu-item>
+        <router-link to="/">
+          <el-menu-item index="0" :style="{'justify-content': isOpen ? 'start' : 'center'}">
+            <el-icon>
+              <Odometer/>
+            </el-icon>
+            <span v-if="isOpen" class="menu-text">Dashboard</span>
+          </el-menu-item>
+        </router-link>
+        <router-link to="knowledge">
+          <el-menu-item index="1" :style="{'justify-content': isOpen ? 'start' : 'center'}">
+            <el-icon>
+              <Collection/>
+            </el-icon>
+            <span v-if="isOpen" class="menu-text">Cognition</span>
+          </el-menu-item>
+        </router-link>
+        <router-link to="knowledge">
+          <el-menu-item index="2" :style="{'justify-content': isOpen ? 'start' : 'center'}">
+            <el-icon>
+              <Files/>
+            </el-icon>
+            <span v-if="isOpen" class="menu-text">Knowledge</span>
+          </el-menu-item>
+        </router-link>
+        <router-link to="information">
+          <el-menu-item index="3" :style="{'justify-content': isOpen ? 'start' : 'center'}">
+            <el-icon>
+              <Reading/>
+            </el-icon>
+            <span v-if="isOpen" class="menu-text">Information</span>
+          </el-menu-item>
+        </router-link>
+        <router-link to="data">
+          <el-menu-item index="4" :style="{'justify-content': isOpen ? 'start' : 'center'}">
+            <el-icon>
+              <Grid/>
+            </el-icon>
+            <span v-if="isOpen" class="menu-text">Data</span>
+          </el-menu-item>
+        </router-link>
       </el-menu>
     </el-scrollbar>
   </el-aside>
@@ -80,16 +109,9 @@ const isOpen = computed(() => !props.modelValue)
   color: v-bind(activeTextColor);
 }
 
-.menu-text {
-  font-size: 1.2em;
-}
-
-.router-link-active {
+.el-menu > a {
   text-decoration: none;
-}
-
-.router-link-exact-active {
-  text-decoration: none;
+  color: inherit;
 }
 
 .el-menu-item a {

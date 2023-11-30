@@ -34,7 +34,7 @@ const changeCollapse = () => {
             <Avatar :url="avatarUrl"/>
           </el-col>
           <el-col :span="8">
-            <el-button :icon="Search"
+            <el-button :icons="Search"
                        style="font-size: 2em"
                        circle/>
           </el-col>
