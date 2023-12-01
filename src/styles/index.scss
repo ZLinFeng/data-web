@@ -6,7 +6,12 @@
   ),
   $font-size: (
   "base": 1.1em,
-  )
+  ),
+  $text-color: (
+  "primary": #000000,
+  "regular": #000000,
+  "secondary": #000000
+  ),
 );
 
 @import "global.css";
