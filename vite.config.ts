@@ -5,6 +5,7 @@ import AutoImport from "unplugin-auto-import/vite"
 import Components from "unplugin-vue-components/vite"
 import {ElementPlusResolver} from "unplugin-vue-components/resolvers"
 import {createSvgIconsPlugin} from "vite-plugin-svg-icons";
+import {themePreprocessorPlugin} from "@zougt/vite-plugin-theme-preprocessor";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -15,6 +16,27 @@ export default defineConfig({
     },
     plugins: [
         vue(),
+        themePreprocessorPlugin({
+            scss: {
+                multipleScopeVars: [
+                    {
+                        scopeName: "theme-default",
+                        path: resolve(__dirname, "src/styles/theme/default-vars.scss")
+                    },
+                    {
+                        scopeName: "theme-light",
+                        path: resolve(__dirname, "src/styles/theme/light-vars.scss")
+                    }
+                ],
+                defaultScopeName: "",
+                extract: true,
+                outputDir: "",
+                themeLinkTagId: "head",
+                themeLinkTagInjectTo: "head",
+                removeCssScopeName: false,
+                customThemeCssFileName: (scopeName: string) => scopeName
+            }
+        }),
         createSvgIconsPlugin({
             iconDirs: [resolve(process.cwd(), "src/assets/icons")],
             symbolId: "icon-[name]",
