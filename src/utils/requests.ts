@@ -1,41 +1,73 @@
-import axios, {AxiosInstance, AxiosRequestConfig, AxiosResponse} from "axios";
+import axios, {AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse} from "axios";
+import {ElNotification} from "element-plus";
 
-export interface ResponseStrategy {
-    handleResponse(response: AxiosResponse<any>): any
+export interface Response {
+    code: number,
+    msg: string,
+    data: any
 }
 
-class DefaultResponseStrategy implements ResponseStrategy {
-    handleResponse(response: AxiosResponse<any>): any {
-        console.log(response)
+export interface ResponseStrategy<T> {
+    handleResponse(response: AxiosResponse<any>): T
+}
+
+export class DefaultResponseStrategy implements ResponseStrategy<any> {
+    handleResponse(response: AxiosResponse<any>) {
+        return response.data.data;
     }
 }
 
-class HttpClient {
+export class HttpClient {
     private static instance: HttpClient;
     private axiosInstance: AxiosInstance;
-    private responseStrategy: ResponseStrategy;
+    private responseStrategy: ResponseStrategy<any>;
 
     private constructor(config: AxiosRequestConfig) {
         this.axiosInstance = axios.create(config);
         this.axiosInstance.interceptors.request.use(
             this.addToken,
         );
+        this.axiosInstance.interceptors.response.use(
+            (res: AxiosResponse): AxiosResponse | Promise<AxiosResponse> => {
+                return res;
+            },
+            this.exceptionHandle,
+        );
         this.responseStrategy = new DefaultResponseStrategy();
     }
 
     private addToken(config: AxiosRequestConfig): AxiosRequestConfig {
-        config.headers!.Authorization = `Bearer ${localStorage.getItem('token')}`
-        return config
+        config.headers!.Authorization = `Bearer ${localStorage.getItem('token')}`;
+        return config;
+    }
+
+    private exceptionHandle(error: AxiosError) {
+        if (error && error.response) {
+            ElNotification({
+                title: "Error Code " + error.response.status,
+                message: error.response.statusText,
+                type: "error"
+            });
+        } else {
+            ElNotification({
+                title: "Network Error.",
+                message: "Connection refused.",
+                type: "error",
+            });
+        }
+        return Promise.reject(error);
     }
 
     public async get(url: string, config?: AxiosRequestConfig) {
-        const response = await this.axiosInstance.get(url, config);
-        return this.responseStrategy.handleResponse(response);
+        return await this.axiosInstance.get(url, config)
+            .then((data) => {
+                return this.responseStrategy.handleResponse(data);
+            });
     }
 
-    public async post(url: string, config?: AxiosRequestConfig) {
-        const response = await this.axiosInstance.post(url, config);
-        return this.responseStrategy.handleResponse(response);
+    public async post(url: string, data?: any, config?: AxiosRequestConfig) {
+        let res = await this.axiosInstance.post(url, data, config);
+        return this.responseStrategy.handleResponse(res);
     }
 
     public static getInstance(config: AxiosRequestConfig): HttpClient {
@@ -45,12 +77,12 @@ class HttpClient {
         return HttpClient.instance;
     }
 
-    public setResponseStrategy(strategy: ResponseStrategy): void {
-        this.responseStrategy = strategy
+    public setResponseStrategy(strategy: ResponseStrategy<any>): void {
+        this.responseStrategy = strategy;
     }
 }
 
 export const httpClient = HttpClient.getInstance({
-    baseURL: "/api",
+    baseURL: "http://10.10.188.43:11112/api",
     timeout: 10_000,
 });

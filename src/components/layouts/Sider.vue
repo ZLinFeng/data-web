@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import {Files, Odometer, Grid, Reading, Collection} from "@element-plus/icons-vue";
+import {Odometer} from "@element-plus/icons-vue";
 import Logo from "@/components/layouts/Logo.vue";
-import {computed} from "vue";
+import {computed, onMounted, ref, watch} from "vue";
 import SvgIcon from "@/components/commons/SvgIcon.vue";
+import {useRoute} from "vue-router";
 
 const backgroundColor = "white";
 const textColor = "#495365";
@@ -10,6 +11,23 @@ const activeTextColor = "#6542e6";
 
 const props = defineProps(["modelValue"])
 const isOpen = computed(() => !props.modelValue)
+const route = useRoute();
+const activate = ref("dashboard")
+
+watch(() => route.path, (newValue: string, _: string) => {
+  let value = newValue.substring(1);
+  let number = value.indexOf("/");
+  value = value.substring(0, number >= 0 ? number : value.length);
+  activate.value = value === "" ? "dashboard" : value;
+});
+
+onMounted(() => {
+  let value = useRoute().path;
+  value = value.substring(1);
+  let number = value.indexOf("/");
+  value = value.substring(0, number >= 0 ? number : value.length);
+  activate.value = value === "" ? "dashboard" : value;
+})
 
 </script>
 
@@ -18,44 +36,36 @@ const isOpen = computed(() => !props.modelValue)
     <Logo style="height: 5%" :open="isOpen"/>
     <el-scrollbar>
       <el-menu
-          :default-active=1
+          :default-active="activate"
           :active-text-color="activeTextColor"
           :text-color="textColor"
           :collapse="props.modelValue"
           :collapse-transition="false"
+          router
       >
-        <router-link to="/">
-          <el-menu-item index="0" :style="{'justify-content': isOpen ? 'start' : 'center'}">
-            <el-icon>
-              <Odometer/>
-            </el-icon>
-            <span v-if="isOpen" class="menu-text">Dashboard</span>
-          </el-menu-item>
-        </router-link>
-        <router-link to="knowledge">
-          <el-menu-item index="1" :style="{'justify-content': isOpen ? 'start' : 'center'}">
-            <svg-icon name="cognition" />
-            <span v-if="isOpen" class="menu-text">Cognition</span>
-          </el-menu-item>
-        </router-link>
-        <router-link to="knowledge">
-          <el-menu-item index="2" :style="{'justify-content': isOpen ? 'start' : 'center'}">
-            <svg-icon name="knowledge" />
-            <span v-if="isOpen" class="menu-text">Knowledge</span>
-          </el-menu-item>
-        </router-link>
-        <router-link to="information">
-          <el-menu-item index="3" :style="{'justify-content': isOpen ? 'start' : 'center'}">
-            <svg-icon name="information" />
-            <span v-if="isOpen" class="menu-text">Information</span>
-          </el-menu-item>
-        </router-link>
-        <router-link to="data">
-          <el-menu-item index="4" :style="{'justify-content': isOpen ? 'start' : 'center'}">
-            <svg-icon name="data" />
-            <span v-if="isOpen" class="menu-text">Data</span>
-          </el-menu-item>
-        </router-link>
+        <el-menu-item index="dashboard" :style="{'justify-content': isOpen ? 'start' : 'center'}">
+          <el-icon>
+            <Odometer/>
+          </el-icon>
+          <span v-if="isOpen" class="menu-text">Dashboard</span>
+        </el-menu-item>
+        <el-menu-item index="cognition" :style="{'justify-content': isOpen ? 'start' : 'center'}">
+          <svg-icon name="cognition"/>
+          <span v-if="isOpen" class="menu-text">Cognition</span>
+        </el-menu-item>
+        <el-menu-item index="knowledge"
+                      :style="{'justify-content': isOpen ? 'start' : 'center'}">
+          <svg-icon name="knowledge"/>
+          <span v-if="isOpen" class="menu-text">Knowledge</span>
+        </el-menu-item>
+        <el-menu-item index="information" :style="{'justify-content': isOpen ? 'start' : 'center'}">
+          <svg-icon name="information"/>
+          <span v-if="isOpen" class="menu-text">Information</span>
+        </el-menu-item>
+        <el-menu-item index="data" :style="{'justify-content': isOpen ? 'start' : 'center'}">
+          <svg-icon name="data"/>
+          <span v-if="isOpen" class="menu-text">Data</span>
+        </el-menu-item>
       </el-menu>
     </el-scrollbar>
   </el-aside>

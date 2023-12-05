@@ -12,8 +12,7 @@
   "regular": #000000,
   "secondary": #000000
   ),
+  $tag: (
+  "font-size": 1.1em,
+  ),
 );
-
-@import "global.css";
-@import "normalize.css";
-@import "element-plus/dist/index.css";

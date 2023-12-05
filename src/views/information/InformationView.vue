@@ -21,7 +21,7 @@ const activeName = ref("accounts")
               <span>Accounts</span>
             </span>
           </template>
-          <AccountsView />
+          <AccountsView/>
         </el-tab-pane>
         <el-tab-pane label="Persons" name="persons">
           <template #label>
@@ -30,7 +30,7 @@ const activeName = ref("accounts")
               <span>Persons</span>
             </span>
           </template>
-          <PersonsView />
+          <PersonsView/>
         </el-tab-pane>
         <el-tab-pane label="Events" name="events">
           <template #label>
@@ -39,7 +39,7 @@ const activeName = ref("accounts")
               <span>Events</span>
             </span>
           </template>
-          <EventsView />
+          <EventsView/>
         </el-tab-pane>
         <el-tab-pane label="Keywords" name="keywords">
           <template #label>
@@ -48,7 +48,7 @@ const activeName = ref("accounts")
               <span>Keywords</span>
             </span>
           </template>
-          <KeywordsView />
+          <KeywordsView/>
         </el-tab-pane>
       </el-tabs>
     </div>

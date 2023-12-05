@@ -4,9 +4,7 @@
 <template>
   <el-container class="content">
     <el-main>
-      <el-scrollbar>
-        <router-view></router-view>
-      </el-scrollbar>
+      <router-view></router-view>
     </el-main>
   </el-container>
 </template>

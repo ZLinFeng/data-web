@@ -21,6 +21,7 @@ const props = withDefaults(defineProps<Props>(), {open: true});
 
 <style scoped>
 .logo-container {
+  margin-top: 1em;
   display: flex;
   font-size: 2em;
   color: black;

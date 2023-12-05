@@ -9,7 +9,7 @@ export const routes: RouteRecordRaw[] = [
         children: [
             {
                 path: "knowledge",
-                component: () => import("@/views/KnowledgeView.vue")
+                component: () => import("@/views/knowledge/KnowledgeView.vue")
             },
             {
                 path: "information",
@@ -17,9 +17,25 @@ export const routes: RouteRecordRaw[] = [
             },
             {
                 path: "data",
-                component: () => import("@/views/DataView.vue")
+                component: () => import("@/views/data/DataView.vue")
+            },
+            {
+                path: "cognition",
+                component: () => import("@/views/cognition/CognitionView.vue")
+            },
+            {
+                path: "dashboard",
+                component: () => import("@/views/dashboard/DashboardView.vue")
+            },
+            {
+                path: "/",
+                component: () => import("@/views/dashboard/DashboardView.vue")
             }
         ]
+    },
+    {
+        path: "/login",
+        component: () => import("@/views/auth/LoginView.vue")
     }
 ]
 
