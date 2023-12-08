@@ -13,6 +13,9 @@ export default defineConfig({
         port: 3000,
         hmr: true,
         open: true,
+        proxy: {
+            "/api": "http://gateway:11110"
+        }
     },
     plugins: [
         vue(),

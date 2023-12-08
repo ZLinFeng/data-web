@@ -83,6 +83,6 @@ export class HttpClient {
 }
 
 export const httpClient = HttpClient.getInstance({
-    baseURL: "http://gateway:11110/api",
+    baseURL: "/api",
     timeout: 10_000,
 });
