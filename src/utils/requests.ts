@@ -13,7 +13,7 @@ export interface ResponseStrategy<T> {
 
 export class DefaultResponseStrategy implements ResponseStrategy<any> {
     handleResponse(response: AxiosResponse<any>) {
-        return response.data.data;
+        return response.data;
     }
 }
 
@@ -83,6 +83,6 @@ export class HttpClient {
 }
 
 export const httpClient = HttpClient.getInstance({
-    baseURL: "http://10.10.188.43:11112/api",
+    baseURL: "http://gateway:11110/api",
     timeout: 10_000,
 });

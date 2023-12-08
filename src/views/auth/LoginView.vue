@@ -2,6 +2,7 @@
 
 import SvgIcon from "@/components/commons/SvgIcon.vue";
 import {onMounted, ref} from "vue";
+import {login} from "@/api/system/User.ts";
 
 const username = ref("");
 const password = ref("");
@@ -33,6 +34,7 @@ onMounted(() => {
   printWelcome();
   printIntroduction();
 })
+
 </script>
 
 <template>
@@ -65,7 +67,7 @@ onMounted(() => {
                         v-model="password"
                         clearable/>
               <div class="form-btn">
-                <el-button type="primary">Sign in</el-button>
+                <el-button type="primary" @click="login({username: username, password: password})">Sign in</el-button>
               </div>
               <div class="form-btn">
                 <el-button type="danger">Sign up</el-button>
