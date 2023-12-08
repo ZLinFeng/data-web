@@ -2,7 +2,7 @@ import {LoginForm, RegisterForm} from "@/api/system/type.ts";
 import {httpClient, HttpClient, ResponseStrategy} from "@/utils/requests.ts";
 import {AxiosResponse} from "axios";
 import {AUTH_ERR, SYS_ERR} from "@/constants/ResponseCode.ts";
-import {ElNotification} from "element-plus";
+import {ElMessage, ElNotification} from "element-plus";
 import router from "@/router";
 
 enum UserAPI {
@@ -21,22 +21,28 @@ class LoginStrategy implements ResponseStrategy<void> {
         let code = response.data.code;
         switch (code) {
             case AUTH_ERR:
-                ElNotification({
-                    title: "Authentication Error",
+                ElMessage({
                     type: "error",
-                    message: "Wrong username or password."
+                    message: "Wrong username or password.",
                 });
                 break;
             case SYS_ERR:
-                ElNotification({
-                    title: "System Error",
+                ElMessage({
                     type: "error",
-                    message: "Internal Server Error"
+                    message: "Internal Server Error.",
                 });
                 break;
             default:
                 localStorage.setItem("token", response.data.data);
-                router.push("/dashboard");
+                router.push("/dashboard").then((_) => {
+                    ElNotification(
+                        {
+                            title: "Success",
+                            type: "success",
+                            message: "Welcome to Giraffe."
+                        }
+                    )
+                });
         }
         return undefined;
     }
