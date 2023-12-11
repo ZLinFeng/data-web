@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import {onMounted, reactive, ref} from "vue";
-import {Search, View} from "@element-plus/icons-vue";
+import {Search} from "@element-plus/icons-vue";
 import {countEvents, listEvents} from "@/api/information/Events.ts";
 import {EventResponseItem, EventsSearchParams} from "@/api/information/type.ts";
 import * as moment from "moment/moment";
+import EventDetail from "@/views/information/EventDetail.vue";
 
 const tableData = reactive<EventResponseItem[]>([]);
 let eventsTotal = ref<number>(0);
@@ -16,6 +17,8 @@ const data = reactive<EventsSearchParams>({
   page: 1,
   pageSize: 50,
 });
+
+const showEventDetail = ref(false)
 
 const search = (isPage: boolean) => {
   if (!isPage) {
@@ -74,6 +77,10 @@ const domain2type = new Map<string, string>();
 domain2type.set("politics", "");
 domain2type.set("military", "success");
 domain2type.set("society", "danger");
+
+const showDetail = () => {
+  showEventDetail.value = true
+}
 
 </script>
 
@@ -142,32 +149,40 @@ domain2type.set("society", "danger");
                      :page-size="50"/>
     </div>
   </div>
-  <el-scrollbar style="height: 500px">
-    <div class="events-wrapper">
-      <div class="table-wrapper">
-        <el-table :data="tableData" style="width: 100%" border>
-          <el-table-column prop="date" label="Date" width="120em"/>
-          <el-table-column prop="event" label="Event" width="auto"/>
-          <el-table-column prop="hot" label="Hot" width="100em"/>
-          <el-table-column prop="domain" label="Domain" width="100em">
-            <template #default="scope">
-              <el-tag :type="domain2type.get(scope.row.domain)">{{ scope.row.domain }}</el-tag>
-            </template>
-          </el-table-column>
-          <el-table-column prop="action" label="Action" width="200em">
-            <template #default>
-              <el-button type="primary" size="small">
-                View
-              </el-button>
-            </template>
-          </el-table-column>
-        </el-table>
+  <div class="events-wrapper">
+    <div class="table-wrapper">
+      <el-table :data="tableData" style="width: 100%" border max-height="800">
+        <el-table-column prop="date" label="Date" width="120em"/>
+        <el-table-column prop="event" label="Event" width="auto"/>
+        <el-table-column prop="hot" label="Hot" width="100em"/>
+        <el-table-column prop="domain" label="Domain" width="100em">
+          <template #default="scope">
+            <el-tag :type="domain2type.get(scope.row.domain)">{{ scope.row.domain }}</el-tag>
+          </template>
+        </el-table-column>
+        <el-table-column prop="action" label="Action" width="200em">
+          <template #default>
+            <el-button type="primary" size="small" @click="showDetail">
+              View
+            </el-button>
+            <el-button type="success" size="small" @click="showDetail">
+              Timeline
+            </el-button>
+          </template>
+        </el-table-column>
+      </el-table>
+      <div v-if="showEventDetail" class="events-detail">
+        <EventDetail style="height: 800px"/>
       </div>
     </div>
-  </el-scrollbar>
+  </div>
 </template>
 
 <style scoped lang="scss">
+.el-scrollbar {
+  height: 100%;
+}
+
 .events-wrapper {
   display: flex;
   align-items: center;
@@ -176,6 +191,8 @@ domain2type.set("society", "danger");
 
 .table-wrapper {
   width: 95%;
+  display: flex;
+  justify-content: center;
 }
 
 .pagination-wrapper {
@@ -227,6 +244,20 @@ domain2type.set("society", "danger");
 
 .el-table {
   $--el-tag-font-size: 1em;
+}
+
+.events {
+  display: flex;
+  justify-content: center;
+}
+
+.events-table {
+  width: 60%;
+}
+
+.events-detail {
+  width: 40%;
+  height: 100%;
 }
 
 /*:deep(.el-table) {
