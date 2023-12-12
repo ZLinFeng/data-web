@@ -14,7 +14,7 @@ export default defineConfig({
         hmr: true,
         open: true,
         proxy: {
-            "/api": "http://gateway:11110"
+            "/api": "http://10.10.188.43:11112"
         }
     },
     plugins: [

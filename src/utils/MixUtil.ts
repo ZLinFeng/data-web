@@ -1,4 +1,8 @@
 //import jwt from "jsonwebtoken";
+import * as moment from "moment/moment";
+
+export const DEFAULT_DATETIME_FORMAT = "YYYY-MM-DD HH:mm:ss";
+export const DEFAULT_DATE_FORMAT = "YYYY-MM-DD";
 export const expiryDate = (token: string): boolean => {
     if (!token) {
         return true;
@@ -11,4 +15,9 @@ export const expiryDate = (token: string): boolean => {
         return true;
     }
     return false;
+}
+
+export const seconds2string = (timestamp: number): string => {
+    const dateTime = moment.unix(timestamp);
+    return dateTime.format(DEFAULT_DATETIME_FORMAT);
 }

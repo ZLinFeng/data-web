@@ -5,12 +5,13 @@ import {countEvents, listEvents} from "@/api/information/Events.ts";
 import {EventResponseItem, EventsSearchParams} from "@/api/information/type.ts";
 import * as moment from "moment/moment";
 import EventDetail from "@/views/information/EventDetail.vue";
+import {DEFAULT_DATE_FORMAT} from "@/utils/MixUtil.ts";
 
 const tableData = reactive<EventResponseItem[]>([]);
 let eventsTotal = ref<number>(0);
 const data = reactive<EventsSearchParams>({
-  dates: [moment().subtract(7, "days").format("YYYY-MM-DD"),
-    moment().format("YYYY-MM-DD")],
+  dates: [moment().subtract(7, "days").format(DEFAULT_DATE_FORMAT),
+    moment().format(DEFAULT_DATE_FORMAT)],
   projects: ["tw01"],
   domains: ["politics"],
   content: "",
@@ -18,7 +19,12 @@ const data = reactive<EventsSearchParams>({
   pageSize: 50,
 });
 
+const tableLoading = ref(true)
+
 const showEventDetail = ref(false)
+
+const showEventId = ref(0)
+const showEvent = ref("")
 
 const search = (isPage: boolean) => {
   if (!isPage) {
@@ -34,6 +40,7 @@ const search = (isPage: boolean) => {
       for (let item of items) {
         tableData.push(item);
       }
+      tableLoading.value = false;
     });
   });
 }
@@ -78,8 +85,10 @@ domain2type.set("politics", "");
 domain2type.set("military", "success");
 domain2type.set("society", "danger");
 
-const showDetail = () => {
-  showEventDetail.value = true
+const showDetail = (item: EventResponseItem) => {
+  showEventDetail.value = true;
+  showEventId.value = item.eventId;
+  showEvent.value = item.event;
 }
 
 </script>
@@ -151,7 +160,7 @@ const showDetail = () => {
   </div>
   <div class="events-wrapper">
     <div class="table-wrapper">
-      <el-table :data="tableData" style="width: 100%" border max-height="800">
+      <el-table :data="tableData" style="width: 100%" border max-height="800" v-loading="tableLoading">
         <el-table-column prop="date" label="Date" width="120em"/>
         <el-table-column prop="event" label="Event" width="auto"/>
         <el-table-column prop="hot" label="Hot" width="100em"/>
@@ -161,8 +170,8 @@ const showDetail = () => {
           </template>
         </el-table-column>
         <el-table-column prop="action" label="Action" width="200em">
-          <template #default>
-            <el-button type="primary" size="small" @click="showDetail">
+          <template #default="scope">
+            <el-button type="primary" size="small" @click="showDetail(scope.row)">
               View
             </el-button>
             <el-button type="success" size="small" @click="showDetail">
@@ -172,7 +181,10 @@ const showDetail = () => {
         </el-table-column>
       </el-table>
       <div v-if="showEventDetail" class="events-detail">
-        <EventDetail style="height: 800px"/>
+        <EventDetail style="height: 800px"
+                     :eventId="showEventId"
+                     :event="showEvent"
+                     v-model:showDetail="showEventDetail"/>
       </div>
     </div>
   </div>
@@ -260,7 +272,4 @@ const showDetail = () => {
   height: 100%;
 }
 
-/*:deep(.el-table) {
-  --el-table-header-bg-color: red;
-}*/
 </style>

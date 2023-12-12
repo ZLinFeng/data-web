@@ -38,6 +38,7 @@ declare module 'vue' {
     ElTabPane: typeof import('element-plus/es')['ElTabPane']
     ElTabs: typeof import('element-plus/es')['ElTabs']
     ElTag: typeof import('element-plus/es')['ElTag']
+    ElTooltip: typeof import('element-plus/es')['ElTooltip']
     Header: typeof import('./src/components/layouts/Header.vue')['default']
     HeaderSettingBtn: typeof import('./src/components/header/HeaderSettingBtn.vue')['default']
     HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
@@ -49,5 +50,8 @@ declare module 'vue' {
     RouterView: typeof import('vue-router')['RouterView']
     Sider: typeof import('./src/components/layouts/Sider.vue')['default']
     SvgIcon: typeof import('./src/components/commons/SvgIcon.vue')['default']
+  }
+  export interface ComponentCustomProperties {
+    vLoading: typeof import('element-plus/es')['ElLoadingDirective']
   }
 }
