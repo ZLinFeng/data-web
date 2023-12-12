@@ -1,7 +1,7 @@
 <script setup lang="ts">
 
 import NewsCard from "@/components/commons/card/NewsCard.vue";
-import {onMounted, ref} from "vue";
+import {onMounted, ref, watch} from "vue";
 import {CloseBold} from "@element-plus/icons-vue";
 import {EventNewsItem} from "@/api/information/type.ts";
 import {listNewsByEventId} from "@/api/information/Events.ts";
@@ -13,7 +13,17 @@ const newsData = ref<EventNewsItem[]>([]);
 const props = defineProps(["event", "eventId", "showDetail"])
 const $emit = defineEmits(["update:showDetail"])
 
+const eventId = ref(props.eventId)
+
 onMounted(() => {
+  loading.value = true;
+  listNewsByEventId(props.eventId).then((data: EventNewsItem[]) => {
+    newsData.value = data;
+    loading.value = false;
+  });
+})
+
+watch(eventId, () => {
   loading.value = true;
   listNewsByEventId(props.eventId).then((data: EventNewsItem[]) => {
     newsData.value = data;
